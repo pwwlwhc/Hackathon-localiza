@@ -487,7 +487,7 @@ function renderOfflineMap() {
 }
 function setChargingBusy(busy) {
   state.charging.busy = busy;
-  byId('findCharging').disabled = byId('showDemo').disabled = busy;
+  byId('findCharging').disabled = busy;
   byId('chargingMap').setAttribute('aria-busy', String(busy));
 }
 async function activateDemoMode(reason = '', tryGoogle = true) {
@@ -509,8 +509,7 @@ async function findNearbyCharging() {
   if (state.charging.busy) return;
   if (FORCE_DEMO_MODE) { await activateDemoMode(); return; }
   if (!hasGoogleMapsKey()) {
-    byId('chargingStatus').textContent = 'Configure a chave do Google Maps para visualizar pontos reais. Você pode explorar a demonstração abaixo.';
-    if (state.charging.mode !== 'demo') setMapPlaceholder('A demonstração está pronta para explorar.', 'Use “Visualizar demonstração” para conhecer a experiência sem uma chave.');
+    await activateDemoMode('Configure a chave do Google Maps para visualizar pontos reais.', false);
     return;
   }
   const requestId = ++state.charging.requestId;
@@ -598,10 +597,9 @@ byId('profileForm').addEventListener('submit', (event) => {
   if (FORCE_DEMO_MODE && state.charging.mode === 'idle') void activateDemoMode();
 });
 byId('findCharging').addEventListener('click', findNearbyCharging);
-byId('showDemo').addEventListener('click', () => { void activateDemoMode(); });
 byId('ctaElectric').addEventListener('click', showInterest);
 if (window.APP_CONFIG?.FIXED_LOCATION) {
-  byId('locationNotice').textContent = `Localização fixa da busca: ${window.APP_CONFIG.FIXED_LOCATION.address}. As distâncias são calculadas a partir desse endereço, sem solicitar localização ao navegador.`;
+  byId('locationNotice').textContent = `Localização: ${window.APP_CONFIG.FIXED_LOCATION.address}. As distâncias são calculadas a partir desse endereço, sem solicitar localização ao navegador.`;
 }
 byId('electricVehicles').textContent = number(LOCALIZA_ELECTRIC_IMPACT.electricVehicles);
 byId('avoidedCO2Tonnes').textContent = number(LOCALIZA_ELECTRIC_IMPACT.avoidedCO2Tonnes);
