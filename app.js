@@ -55,7 +55,8 @@ const SIMULATION_CONFIG = {
   electricityCO2KgPerKwh: 0.075, daysPerMonth: 30, monthsPerYear: 12, contractMonths: 24,
   mixedCityShare: 0.5, goodDailyRangeRatio: 0.4, planningDailyRangeRatio: 0.7,
 };
-const LOCALIZA_ELECTRIC_IMPACT = { electricVehicles: 12.902, avoidedCO2Tonnes: 380.000 };
+// Mock da apresentação. O separador de milhares no código é "_", não ponto.
+const LOCALIZA_ELECTRIC_IMPACT = { electricVehicles: 13_250, avoidedCO2Tonnes: 3_800 };
 const FORCE_DEMO_MODE = false;
 const GOOGLE_MAPS_CONFIG = {
   apiKey: window.APP_CONFIG?.GOOGLE_MAPS_API_KEY || '',
@@ -602,8 +603,8 @@ byId('ctaElectric').addEventListener('click', showInterest);
 if (window.APP_CONFIG?.FIXED_LOCATION) {
   byId('locationNotice').textContent = `Localização fixa da busca: ${window.APP_CONFIG.FIXED_LOCATION.address}. As distâncias são calculadas a partir desse endereço, sem solicitar localização ao navegador.`;
 }
-byId('electricVehicles').textContent = `Mais de ${number(LOCALIZA_ELECTRIC_IMPACT.electricVehicles)}`;
-byId('avoidedCO2Tonnes').textContent = `≈ ${number(LOCALIZA_ELECTRIC_IMPACT.avoidedCO2Tonnes)}`;
+byId('electricVehicles').textContent = number(LOCALIZA_ELECTRIC_IMPACT.electricVehicles);
+byId('avoidedCO2Tonnes').textContent = number(LOCALIZA_ELECTRIC_IMPACT.avoidedCO2Tonnes);
 if (!hasGoogleMapsKey() && !FORCE_DEMO_MODE) byId('chargingStatus').textContent = 'Configure a chave do Google Maps para visualizar pontos reais. A demonstração já está disponível.';
 renderCarCatalog();
 renderProgress();
