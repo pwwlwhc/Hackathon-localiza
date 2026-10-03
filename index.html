@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Localiza Assinatura • Meu Elétrico</title>
+  <meta name="description" content="Escolha seu carro e descubra como ele se encaixa na sua rotina. Protótipo de mobilidade elétrica Localiza Assinatura." />
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav shell" aria-label="Navegação principal">
+      <a class="brand" href="#" aria-label="Localiza Assinatura, início"><span class="brand-mark">L</span><span>Localiza<br><strong>assinatura</strong></span></a>
+      <div class="nav-links"><button class="nav-link" data-action="choose">Carros</button><a class="nav-link" href="#duvidas">Ajuda</a><span class="prototype-label">PROTÓTIPO · MEU ELÉTRICO</span></div>
+      <button class="btn btn-lime" data-action="choose">Escolher meu carro</button>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">LOCALIZA ASSINATURA · MEU ELÉTRICO</span>
+          <h1>Seu próximo carro pode combinar ainda mais com a sua rotina.</h1>
+          <p>Escolha um modelo e compare custos, autonomia e recarga antes de decidir.</p>
+          <div class="hero-actions"><button class="btn btn-primary" data-scroll="catalogo">Escolher meu carro <span aria-hidden="true">↗</span></button></div>
+          <div class="trust-row"><span>✓ sua escolha vem primeiro</span><span>✓ custos transparentes</span><span>✓ suporte Localiza</span></div>
+        </div>
+        <aside class="hero-guide">
+          <span class="status-pill">UMA DECISÃO COM MAIS CLAREZA</span>
+          <h2>Não falta interesse.<br><em>Falta segurança<br>para decidir.</em></h2>
+          <div class="guide-row"><span>01</span><div><strong>O carro que você considera</strong><small>Seu ponto de partida.</small></div></div>
+          <div class="guide-row"><span>02</span><div><strong>A rotina que você vive</strong><small>Quilômetros, custos e recarga.</small></div></div>
+          <div class="guide-row"><span>03</span><div><strong>Uma escolha que faz sentido</strong><small>Com informação para seguir em frente.</small></div></div>
+        </aside>
+      </div>
+    </section>
+
+    <nav class="progress shell" aria-label="Etapas da simulação">
+      <ol>
+        <li><button data-step="1" aria-current="step"><span>1</span>Escolha seu carro</button></li>
+        <li><button data-step="2" disabled><span>2</span>Conte sua rotina</button></li>
+        <li><button data-step="3" disabled><span>3</span>Veja sua análise</button></li>
+      </ol>
+    </nav>
+
+    <section class="section catalog-section" id="catalogo" aria-labelledby="catalogTitle">
+      <div class="shell">
+        <div class="section-heading"><span class="eyebrow">01 · SUA ESCOLHA</span><h2 id="catalogTitle" tabindex="-1">Qual carro combina com você?</h2><p>Escolha o modelo que você está considerando. A gente mostra como essa escolha se encaixa na sua rotina — e, quando fizer sentido, uma alternativa elétrica equivalente.</p></div>
+        <div class="category-filters" id="categoryFilters" role="group" aria-label="Filtrar por perfil"></div>
+        <p class="estimate-note">Mensalidades, versões e parâmetros são valores de referência para o protótipo. Não constituem oferta comercial ou confirmação de disponibilidade.</p>
+        <div class="catalog-grid" id="carCatalog"></div>
+        <p id="catalogEmpty" class="empty-state" hidden>Nenhum modelo Premium cadastrado nesta versão. Explore os outros perfis.</p>
+        <div class="selection-bar" id="selectionBar" hidden><div><small>SUA ESCOLHA</small><strong id="selectedCarLabel" role="status">Selecione um modelo para começar</strong></div><button class="btn btn-primary" id="continueCar" disabled>Continuar com este carro <span aria-hidden="true">→</span></button></div>
+      </div>
+    </section>
+
+    <section class="section journey-section" id="jornada" hidden>
+      <div class="shell">
+        <div class="section-heading"><span class="eyebrow">02 · SUA ROTINA</span><h2 id="journeyTitle" tabindex="-1"></h2><p id="journeySubtitle"></p></div>
+        <div id="journeyContent"></div>
+        <button class="text-button" data-action="choose">← Escolher outro modelo</button>
+      </div>
+    </section>
+
+    <section class="section" id="simulador" hidden>
+      <div class="shell">
+        <div class="simulator-grid">
+          <form class="panel form-panel" id="profileForm">
+            <h2 id="routineTitle" tabindex="-1">Como você usa seu carro?</h2>
+            <p class="muted">Poucas respostas para uma análise com a sua cara.</p>
+            <div class="field-group"><label for="monthlyKm">Quantos km você roda por mês?</label><div class="range-line"><input id="monthlyKm" type="range" min="500" max="3000" step="50" value="1000" /><output id="monthlyKmOutput" for="monthlyKm">1.000 km</output></div><div class="range-scale"><span>500</span><span>3.000 km</span></div></div>
+            <fieldset class="field-group"><legend>Seu uso é principalmente:</legend><div class="segmented"><label><input type="radio" name="useType" value="city" checked /><span>Cidade</span></label><label><input type="radio" name="useType" value="mixed" /><span>Misto</span></label><label><input type="radio" name="useType" value="road" /><span>Estrada</span></label></div></fieldset>
+            <fieldset class="field-group"><legend>Você consegue carregar em casa ou no trabalho?</legend><div class="choice-grid"><label class="choice-card"><input type="radio" name="charging" value="yes" checked /><span class="choice-icon" aria-hidden="true">⌂</span><strong>Sim</strong><small>Tenho uma vaga com acesso à recarga.</small></label><label class="choice-card"><input type="radio" name="charging" value="no" /><span class="choice-icon" aria-hidden="true">↯</span><strong>Ainda não</strong><small>Vou precisar de recarga pública.</small></label></div></fieldset>
+            <div class="field-group" id="gasPriceField"><label for="gasPrice">Preço médio da gasolina</label><div class="money-input"><span>R$</span><input id="gasPrice" type="number" min="4" max="10" step="0.01" value="6.50" required /></div></div>
+            <button type="submit" class="btn btn-primary full" id="analyzeButton">Ver minha análise</button>
+            <p class="form-note">Estimativas ilustrativas. Ajuste sua rotina e veja o que muda.</p>
+          </form>
+          <aside class="panel insight-panel" id="routineContext"></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section results-section" id="resultado" hidden>
+      <div class="shell">
+        <div class="result-header"><div><span class="eyebrow" id="resultEyebrow">03 · SUA ANÁLISE</span><h2 id="fitTitle" tabindex="-1"></h2><p id="fitSubtitle"></p></div><span class="fit-level" id="fitLevel"></span></div>
+        <div id="resultContent"></div>
+        <div class="personal-impact"><span class="impact-icon" aria-hidden="true">CO₂</span><div><small id="co2Heading">Quanto sua rotina deixaria de emitir operacionalmente</small><strong id="co2Avoided"></strong><span id="co2Contract"></span><p id="co2Reference"></p></div></div>
+        <p class="estimate-note" id="calculationNote"></p>
+        <div class="next-charging"><div><strong id="chargingBridge"></strong><p>Mas onde eu vou carregar? Veja as opções perto de você.</p></div><button class="btn btn-primary" data-scroll="recarga">Ver onde carregar <span aria-hidden="true">↓</span></button></div>
+      </div>
+    </section>
+
+    <section class="section" id="impacto-localiza" data-after-analysis hidden>
+      <div class="shell"><div class="section-heading"><span class="eyebrow">MOBILIDADE EM MOVIMENTO · CENÁRIO ILUSTRATIVO</span><h2>Uma escolha que já está gerando impacto</h2><p>Seu impacto individual faz parte de uma mudança maior na mobilidade.</p></div><div class="collective-impact"><div><span class="impact-symbol" aria-hidden="true">↯</span><strong id="electricVehicles"></strong><span>veículos elétricos em circulação</span></div><div><span class="impact-symbol" aria-hidden="true">CO₂</span><strong id="avoidedCO2Tonnes"></strong><span>toneladas de CO₂ evitadas</span></div><p>com a mobilidade elétrica da Localiza</p><small>Estimativa ilustrativa para demonstração do protótipo. Não são dados oficiais.</small></div></div>
+    </section>
+
+    <section class="section" id="recarga" data-after-analysis hidden>
+      <div class="shell">
+        <div class="section-heading"><span class="eyebrow">E A RECARGA?</span><h2>Recarga perto de você</h2><p id="chargingIntro">Veja onde você poderia carregar seu elétrico na sua rotina.</p></div>
+        <div class="charging-card">
+          <div class="charging-summary">
+            <span class="status-pill" id="chargingMode">SUA ROTINA, SEUS CAMINHOS</span>
+            <p id="chargingStatus" role="status" aria-live="polite">Descubra os pontos de recarga próximos da sua rotina.</p>
+            <div id="chargingStats" hidden><strong id="chargingCount"></strong><span id="chargingCountLabel">pontos encontrados nesta busca</span><p id="chargingShown"></p></div>
+            <div class="charging-actions"><button class="btn btn-primary" id="findCharging">Encontrar pontos próximos</button><button class="btn btn-ghost" id="showDemo">Visualizar demonstração</button></div>
+            <small id="locationNotice">A localização só é solicitada ao clicar. Na busca real, as coordenadas são usadas pelo Google Maps e Places para buscar pontos próximos.</small>
+            <p class="estimate-note" id="chargingNote">Confirme acesso, conector e funcionamento com o operador antes de sair.</p>
+          </div>
+          <div class="charging-map-panel"><div id="chargingMap" aria-label="Mapa de pontos de recarga"><div class="map-placeholder"><span aria-hidden="true">↯</span><strong>Onde sua rotina encontra a recarga.</strong><p>Busque pontos próximos ou explore a demonstração.</p></div></div><p class="estimate-note" id="mapNote">Distâncias aproximadas em linha reta, não por rota.</p></div>
+          <div class="charging-list-panel" id="chargingListPanel" hidden><h3>Explore os pontos</h3><ol id="chargingList" class="charging-list" aria-label="Pontos de recarga"></ol></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="beneficios" data-after-analysis hidden>
+      <div class="shell"><div class="section-heading"><span class="eyebrow">A TECNOLOGIA MUDA. O APOIO CONTINUA.</span><h2>Seu próximo carro, com os benefícios da assinatura.</h2><p>Mais previsibilidade para dirigir e apoio para cuidar do resto.</p></div><div class="benefits-grid"><article><span aria-hidden="true">✓</span><h3>Documentação resolvida</h3><p>Emplacamento, licenciamento e IPVA dentro da experiência Localiza Assinatura.</p></article><article><span aria-hidden="true">↻</span><h3>Manutenção incluída</h3><p>Manutenção preventiva e corretiva por desgaste natural, conforme as condições do contrato.</p></article><article><span aria-hidden="true">24h</span><h3>Suporte quando precisar</h3><p>Assistência 24h e atendimento para seguir com mais tranquilidade.</p></article><article><span aria-hidden="true">▤</span><h3>Contrato acompanhado</h3><p>Gestão do plano e suporte. Consulte também as condições aplicáveis para carro reserva.</p></article></div><p class="estimate-note">Benefícios sujeitos às condições do produto e do plano escolhido. <a href="https://assinatura.localiza.com/" target="_blank" rel="noopener">Conheça a Localiza Assinatura ↗</a></p></div>
+    </section>
+
+    <section class="section" id="duvidas">
+      <div class="shell"><div class="section-heading"><span class="eyebrow">DECIDA COM CLAREZA</span><h2>As dúvidas que ainda podem estar no caminho.</h2></div><div class="faq-grid">
+        <details><summary>E se eu precisar viajar?</summary><p>A média diária ajuda a entender sua rotina, mas não substitui o planejamento de uma viagem. Confira a autonomia, as paradas de recarga e os conectores disponíveis na rota.</p></details>
+        <details><summary>E se eu não tiver carregador em casa?</summary><p>Seu custo considera uma tarifa ilustrativa de recarga pública. Verifique acesso, horários, preço e disponibilidade dos pontos que pretende usar. A experiência vai depender mais dessa infraestrutura.</p></details>
+        <details><summary>E se o carro precisar de manutenção?</summary><p>A Localiza Assinatura inclui manutenção preventiva e corretiva por desgaste natural, de acordo com as condições contratuais. Consulte o suporte para orientações e agendamento.</p></details>
+        <details><summary>A autonomia cobre meu dia a dia?</summary><p>Compare a média diária com a autonomia estimada na análise. Velocidade, relevo, clima, carga e ar-condicionado alteram o alcance. Mantenha uma margem para imprevistos.</p></details>
+        <details><summary>Com quem conto se precisar de suporte?</summary><p>A assinatura conta com suporte 24h. Confira os canais e condições do seu plano. Para usar um ponto de recarga, confirme também o atendimento do operador.</p></details>
+        <details><summary>Esses valores são uma oferta?</summary><p>Não. Mensalidades, tarifas, consumo e autonomia são referências ilustrativas para esta demonstração. O orçamento final depende do veículo, prazo, franquia de quilômetros e condições comerciais.</p></details>
+      </div></div>
+    </section>
+
+    <section class="final-cta" id="orcamento" data-after-analysis hidden><div class="shell final-cta-inner"><div><span class="eyebrow light">SEU PRÓXIMO PASSO</span><h2 id="finalTitle">Mais clareza para escolher.</h2><p id="finalSubtitle"></p></div><div class="final-actions"><button class="btn btn-lime" id="ctaElectric"></button><button class="btn btn-ghost" data-action="choose">Comparar outro carro</button></div></div></section>
+  </main>
+  <footer class="footer"><div class="shell footer-row"><span>Protótipo conceitual • Hackathon Ruptura 2026</span><span>Localiza Assinatura • Case 1 Mobilidade Elétrica</span></div></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="shell">Ative o JavaScript para escolher um carro e simular sua rotina.</p></noscript>
+</body>
+</html>
